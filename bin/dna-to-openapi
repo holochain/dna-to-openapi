@@ -1,0 +1,99 @@
+#!/usr/bin/env node
+'use strict'
+
+const fs = require('fs')
+
+// set up some options
+const yargs = require('yargs')
+  .usage('Usage $0 [options]')
+  .example('$0', 'lints the given holo app / dna')
+  .example('$0 --path <path>', 'to specify a path (otherwise ".")')
+  .example('$0 --spec <spec-file.json>', 'generates an open-api spec')
+  .example('$0 --doc <api-doc.html>', 'generates static swagger-ui html doc')
+  .example('$0 --spec <spec-file.json> --doc <api-doc.html>', 'does both')
+  .alias('v', 'version')
+  .alias('p', 'path')
+  .nargs('p', 1)
+  .describe('p', 'specify a path (otherwise ".")')
+  .alias('s', 'spec')
+  .nargs('s', 1)
+  .describe('s', 'generates an open-api spec file ("-" for stdout)')
+  .alias('d', 'doc')
+  .nargs('d', 1)
+  .describe('d', 'generates a static swagger-ui html doc ("-" for stdout)')
+  .help('h')
+  .alias('h', 'help')
+  .argv
+
+const lib = require('../lib/index')
+const bundleDna = require('../lib/bundle-dna').bundleDna
+
+/**
+ * lint a dna file with schemas
+ */
+function _lint (...args) {
+  const result = lib.lint(...args)
+
+  for (let warning of result.warnings) {
+    console.error('WARNING', warning)
+  }
+
+  for (let error of result.errors) {
+    console.error('ERROR', error)
+  }
+
+  if (result.errors.length > 0) {
+    process.exit(1)
+  }
+}
+
+/**
+ * Main entrypoint function
+ */
+function _main () {
+  if (yargs.spec === 'stdout') {
+    yargs.spec = '-'
+  }
+
+  if (yargs.doc === 'stdout') {
+    yargs.doc = '-'
+  }
+
+  if (yargs.spec === '-' && yargs.doc === '-') {
+    throw new Error('only one of --spec or --doc can be stdout ("-")')
+  }
+
+  const appDir = yargs.path || '.'
+
+  const bundle = bundleDna(appDir)
+
+  const args = [bundle.dna, { schemas: bundle.schemas }]
+
+  _lint(...args)
+
+  if (yargs.spec || yargs.doc) {
+    const spec = lib.convert(...args).result
+
+    if (yargs.spec) {
+      console.error('generating spec file: ' + yargs.spec)
+      if (yargs.spec === '-') {
+        console.log(JSON.stringify(spec, null, '  '))
+      } else {
+        fs.writeFileSync(yargs.spec, JSON.stringify(spec, null, '  '))
+      }
+    }
+
+    if (yargs.doc) {
+      console.error('generating api-docs file: ' + yargs.doc)
+      const doc = lib.genDocs(spec)
+      if (yargs.doc === '-') {
+        console.log(doc)
+      } else {
+        fs.writeFileSync(yargs.doc, doc)
+      }
+    }
+  }
+}
+
+// entrypoint
+_main()

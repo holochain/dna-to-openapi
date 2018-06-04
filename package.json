@@ -1,0 +1,50 @@
+{
+  "name": "dna-to-openapi",
+  "version": "0.0.1",
+  "description": "given holochain dna, generate a swagger / openapi spec file",
+  "main": "lib/index.js",
+  "bin": {
+    "dna-to-openapi": "./bin/dna-to-openapi"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "standard --fix '**/*.js' 'bin/**/*' && nyc ./node_modules/mocha/bin/mocha 'lib/**/*.test.js' 'bin/**/*.test.js'",
+    "coverage": "node -e \"require('opn')('coverage/lcov-report/index.html')\""
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "swagger-ui-dist": "3.16.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "opn": "^5.3.0",
+    "standard": "^11.0.1",
+    "tmp": "0.0.33"
+  },
+  "standard": {
+    "env": {
+      "mocha": true
+    }
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 80,
+    "all": true,
+    "include": [
+      "./lib/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  }
+}
