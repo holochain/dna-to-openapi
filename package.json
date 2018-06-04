@@ -1,6 +1,6 @@
 {
   "name": "dna-to-openapi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "given holochain dna, generate a swagger / openapi spec file",
   "main": "lib/index.js",
   "bin": {
@@ -11,6 +11,8 @@
   },
   "scripts": {
     "test": "standard --fix '**/*.js' 'bin/**/*' && nyc ./node_modules/mocha/bin/mocha 'lib/**/*.test.js' 'bin/**/*.test.js'",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags",
     "coverage": "node -e \"require('opn')('coverage/lcov-report/index.html')\""
   },
   "license": "Apache-2.0",
