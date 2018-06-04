@@ -1,0 +1,41 @@
+{
+    "Version": 1,
+    "UUID": "00000000-0000-0000-0000-000000000000",
+    "Name": "test",
+    "Properties": {
+        "description": "test",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "RequiresVersion": 24,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "RedundancyFactor": 0
+    },
+    "Zomes": [
+        {
+            "Name": "test",
+            "Description": "test",
+            "CodeFile": "test.js",
+            "RibosomeType": "js",
+            "Entries": [
+                {
+                    "Name": "test",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "test.json"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "test",
+                    "CallingType": "json",
+                    "InputSchemaFile": "test.json",
+                    "ReturnType": "json",
+                    "OutputSchemaFile": "test.json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}
