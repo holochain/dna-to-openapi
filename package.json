@@ -1,6 +1,6 @@
 {
   "name": "@holochain/dna-to-openapi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "given holochain dna, generate a swagger / openapi spec file / static swagger-ui html documentation",
   "repository": {
     "type": "git",
