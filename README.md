@@ -32,7 +32,7 @@ Examples:
 ### as a library
 
 ```javascript
-const dna = require('dna-to-openapi')
+const dna = require('@holochain/dna-to-openapi')
 
 // 1 - lint
 const lintResults = dna.lint(dnaJsonObject, schemasObject)
