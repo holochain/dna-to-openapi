@@ -1,7 +1,11 @@
 {
-  "name": "dna-to-openapi",
+  "name": "@holochain/dna-to-openapi",
   "version": "0.0.2",
-  "description": "given holochain dna, generate a swagger / openapi spec file",
+  "description": "given holochain dna, generate a swagger / openapi spec file / static swagger-ui html documentation",
+  "repository": {
+    "type": "git",
+    "url": "github:holochain/dna-to-openapi.git"
+  },
   "main": "lib/index.js",
   "bin": {
     "dna-to-openapi": "./bin/dna-to-openapi"

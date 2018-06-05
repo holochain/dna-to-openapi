@@ -1,13 +1,16 @@
 # dna-to-openapi
 
-given holochain dna, generate a swagger / openapi spec file
+given holochain dna, generate a swagger / openapi spec file / static swagger-ui html documentation
 
 ## usage
 
 ### commandline
 
+`$` `npm install -g @holochain/dna-to-openapi`
+
+`$` `dna-to-openapi -h`
+
 ```
-$ ./bin/dna-to-openapi -h
 Usage dna-to-openapi [options]
 
 Options:
