@@ -22,14 +22,13 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "standard --fix '**/*.js' 'bin/**/*' && nyc ./node_modules/mocha/bin/mocha 'lib/**/*.test.js' 'bin/**/*.test.js'",
+    "test": "node ./build/gen-resources.js && standard --fix '**/*.js' 'bin/**/*' && nyc ./node_modules/mocha/bin/mocha 'lib/**/*.test.js' 'bin/**/*.test.js'",
     "preversion": "npm test",
     "postversion": "git push --follow-tags",
     "coverage": "node -e \"require('opn')('coverage/lcov-report/index.html')\""
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "swagger-ui-dist": "3.16.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
@@ -38,6 +37,7 @@
     "nyc": "^12.0.2",
     "opn": "^5.3.0",
     "standard": "^11.0.1",
+    "swagger-ui-dist": "3.16.0",
     "tmp": "0.0.33"
   },
   "standard": {

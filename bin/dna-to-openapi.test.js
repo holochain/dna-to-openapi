@@ -10,7 +10,7 @@ tmp.setGracefulCleanup()
 
 const version = require('../package').version
 
-const TIMEOUT = 5000
+const TIMEOUT = 10000
 
 function exec (...args) {
   return new Promise((resolve, reject) => {
